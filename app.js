@@ -4,10 +4,16 @@ const app = express();
 
 const expressLayouts = require('express-ejs-layouts')
 
+const mongoose =require('mongoose')
 // EJS
 app.use(expressLayouts)
 app.set('view engine','ejs');
 
+// DB Config
+const db = require('./config/keys').MongoURI
+mongoose.connect(db,{useNewUrlParser:true}).then(
+    ()=>console.log("Db Connected")
+).catch(err=>console.log(err));
 
 // Routes
 app.use('/',require('./routes/index'))
